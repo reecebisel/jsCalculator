@@ -12,7 +12,6 @@ body {
   font-size: 16px;
   line-height: 16px;
   text-align: right;
-  /*float: right;*/
   background-color: white;
   display: block;
   color: #7f8c8d;
@@ -56,7 +55,7 @@ body {
 /*============ Button Styles =============*/
 .button-cell {
   width: 25%;
-  height: 100px;
+  max-height: 100px;
   padding: 0;
   margin: 0;
   text-align: center;
@@ -134,5 +133,27 @@ body {
   transition: background-color 1s ease-in;
 }
 
-/*=========== Full Width Styles =============*/
+/*=========== Small Screens =============*/
 
+@media screen and (max-width: 425px) {
+  .calc-body {
+    width: 100%;
+    height: 100%;
+  }
+
+  .display {
+    height: 16%
+  }
+
+  .button-cell {
+    height: 16%;
+  }
+
+  .equals {
+    width: 100%;
+  }
+
+  .clear {
+    width: 25%;
+  }
+}

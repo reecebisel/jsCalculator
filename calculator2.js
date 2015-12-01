@@ -9,37 +9,26 @@ $(document).ready(function(){
     pstDiv:     $('.past'),
     rsltDiv:    $('.results'),
 
-    numClick: function() {
-      Calculator.numButtons.click(function(){
-         Calculator.eqDiv.append($(this).html());
-         eq = Calculator.eqDiv.html();
-         answer = Calculator.calculate(eq);
-         Calculator.rsltDiv.html(answer);
-      }); 
-    }, 
+     numClick: function() {
+      this.numButtons.click((function(event){
+         var element = event.currentTarget;
+         this.eqDiv.append($(element).html());
+         eq = this.eqDiv.html();
+         answer = this.calculate(eq);
+         this.rsltDiv.html(answer);
+      }).bind(this)); 
+    },
 
     equalsFunc: function() {
-      eq = Calculator.eqDiv.html();
-      prevAns = Calculator.rsltDiv.html();
-      Calculator.pstDiv.html(eq);
-      Calculator.eqDiv.html(prevAns);
+      eq = this.eqDiv.html();
+      prevAns = this.rsltDiv.html();
+      this.pstDiv.html(eq);
+      this.eqDiv.html(prevAns);
     }, 
-
-    eqlClick: function() {
-      Calculator.eqlButton.click(function(){
-        Calculator.equalsFunc();
-      });
-    },
 
     clearFunc: function() {
       Calculator.eqDiv.html('');
       Calculator.rsltDiv.html('');
-    },
-
-    clrClick: function() {
-      Calculator.clrButton.click(function() {
-        Calculator.clearFunc();
-      });
     },
 
     fullClear: function() {
@@ -47,28 +36,22 @@ $(document).ready(function(){
       Calculator.pstDiv.html('');
     },
 
-    clrDbl: function() {
-      Calculator.clrButton.dblclick(function(){
-        Calculator.fullClear();
-      });
-    },
-      
     typeDisp: function() {
-      $(document).keypress(function(event) {
-        if (Calculator.operCodes.indexOf(event.which) != -1) {
-          Calculator.eqDiv.append(String.fromCharCode(event.which));
-        } else if (Calculator.numCodes.indexOf(event.which) != -1) {
-          Calculator.eqDiv.append(String.fromCharCode(event.which));
-          answer = Calculator.calculate(Calculator.eqDiv.text());
-          Calculator.rsltDiv.html(answer);
+      $(document).keypress((function(event) {
+        if(this.operCodes.indexOf(event.which) != -1) {
+          this.eqDiv.append(String.fromCharCode(event.which));
+        } else if (this.numCodes.indexOf(event.which) != -1) {
+          this.eqDiv.append(String.fromCharCode(event.which));
+          answer = this.calculate(this.eqDiv.text());
+          this.rsltDiv.html(answer);
         } else if (event.which == 99) {
-          Calculator.clearFunc();
-        } else if (event.which == 13) {
-          Calculator.equalsFunc();
+          this.clearFunc();
         } else if (event.which == 67) {
-          Calculator.fullClear();
+          this.fullClear();
+        } else if (event.which == 13) {
+          this.equalsFunc();
         }
-      });
+      }).bind(this));
     },
 
     newError: function(errorMsg) {
@@ -97,10 +80,10 @@ $(document).ready(function(){
 
     calcInit: function() {
       this.numClick();
-      this.eqlClick();
-      this.clrClick();
-      this.clrDbl();
       this.typeDisp();
+      this.eqlButton.click(this.equalsFunc.bind(this));
+      this.clrButton.click(this.clearFunc.bind(this));
+      this.clrButton.dblclick(this.fullClear.bind(this));
     }
   };
   Calculator.calcInit();
