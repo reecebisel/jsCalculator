@@ -1,0 +1,138 @@
+/*========== General styles ==========*/
+body {
+  font-family: Arial, sans-serif;
+  background-color: #2c3e50;
+  text-align: center;
+}
+
+/*========= Display Section ===========*/
+.results {
+  margin: 0 25px;
+  padding: 15px 0;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: right;
+  /*float: right;*/
+  background-color: white;
+  display: block;
+  color: #7f8c8d;
+}
+
+.past {
+  margin: 0 25px;
+  padding: 10px 0;
+  line-height: 16px;
+  font-size: 16px;
+  /*float: right;*/
+  text-align: right;
+  background-color: white;
+  display: block;
+  color: #95a5a6;
+}
+
+.equation {
+  padding: 0 10px;
+  font-size: 30px;
+  line-height: 30px; 
+  text-align: right;
+  color: #34495e;
+  margin: 0 15px;
+  display: block;
+  /*float: right;*/
+}
+
+.calc-body {
+  background-color: white;
+  width: 400px;
+  height: 600px;
+}
+
+.display {
+  margin: 20px 0 15px 0;
+  text-align: right;
+  height: 100px;
+}
+
+/*============ Button Styles =============*/
+.button-cell {
+  width: 25%;
+  height: 100px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: #34495e;
+  line-height: 100px;
+  vertical-align: middle;
+  font-size: 24px;
+  display: inline-block;
+  background: white;
+  float: left;
+  cursor: pointer;
+}
+
+.button-cell:hover {
+  background-color: #ecf0f1;
+  transition: background-color 1s ease-in;
+}
+
+.addition {
+  color: #3498db;
+}
+
+.subtract {
+  color: #8e44ad;
+}
+
+.multiply {
+  color: #c0392b;
+}
+
+.mod {
+  color: #2ecc71;
+}
+
+.divide {
+  color: #f1c40f;
+}
+
+.clear {
+  color: #f39c12;
+  text-align: center;
+  width: 25%;
+  height: 100px;
+  line-height: 100px;
+  vertical-align: middle;
+  font-size: 24px;
+  display: inline-block;
+  background: white;
+  float: left;
+  cursor: pointer;
+}
+
+.clear:hover {
+  background-color: #ecf0f1;
+  transition: background-color 0.25s ease-in;
+}
+
+.equals {
+  color: #bdc3c7;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  line-height: 100px;
+  height: 100px;
+  vertical-align: middle;
+  font-size: 24px;
+  display: inline-block;
+  background: white;
+  float: left;
+  cursor: pointer;
+}
+
+.equals:hover {
+  background-color: #ecf0f1;
+  transition: background-color 1s ease-in;
+}
+
+/*=========== Full Width Styles =============*/
+
