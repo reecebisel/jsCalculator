@@ -1,100 +1,109 @@
-var Calculator = {
-  operCodes:  [42, 43, 45, 47, 37],
-  numCodes:   [48, 49, 50, 51, 52, 53, 54, 55, 56, 57],
-  numButtons: $('span.button-cell'),
-  clrButton:  $('span.clear'),
-  eqlButton:  $('span.equals'),
-  eqDiv:      $('.equation'),
-  pstDiv:     $('.past'),
-  rsltDiv:    $('.results'),
+$(document).ready(function(){
+  var Calculator = {
+    operCodes:  [42, 43, 45, 47, 37],
+    numCodes:   [48, 49, 50, 51, 52, 53, 54, 55, 56, 57],
+    numButtons: $('span.button-cell'),
+    clrButton:  $('span.clear'),
+    eqlButton:  $('span.equals'),
+    eqDiv:      $('.equation'),
+    pstDiv:     $('.past'),
+    rsltDiv:    $('.results'),
 
-  numClick: function() {
-    this.numButtons.click(function(){
-       this.eqDiv.append($(this).html());
-       eq = this.eqDiv.html();
-       answer = this.calculate(eq);
-       this.rsltDiv.html(answer);
-    }); 
-  }, 
+    numClick: function() {
+      Calculator.numButtons.click(function(){
+         Calculator.eqDiv.append($(this).html());
+         eq = Calculator.eqDiv.html();
+         answer = Calculator.calculate(eq);
+         Calculator.rsltDiv.html(answer);
+      }); 
+    }, 
 
-  equalsFunc: function() {
-    eq = this.eqDiv.html();
-    prevAns = this.rsltDiv.html();
-    this.pstDiv.html(eq);
-    this.eqDiv.html(prevAns);
-  }, 
+    equalsFunc: function() {
+      eq = Calculator.eqDiv.html();
+      prevAns = Calculator.rsltDiv.html();
+      Calculator.pstDiv.html(eq);
+      Calculator.eqDiv.html(prevAns);
+    }, 
 
-  eqlClick: function() {
-    this.eqlButton.click(function(){
-      this.equalsFunc();
-    });
-  },
+    eqlClick: function() {
+      Calculator.eqlButton.click(function(){
+        Calculator.equalsFunc();
+      });
+    },
 
-  clearFunc: function() {
-    this.eqDiv.html('');
-    this.rsltDiv.html('');
-  },
+    clearFunc: function() {
+      Calculator.eqDiv.html('');
+      Calculator.rsltDiv.html('');
+    },
 
-  clrClick: function() {
-    this.clrButton.click(function() {
-      this.clearFunc();
-    });
-  },
+    clrClick: function() {
+      Calculator.clrButton.click(function() {
+        Calculator.clearFunc();
+      });
+    },
 
-  fullClear: function() {
-    this.clrButton.dblclick(function(){
-      this.clearFunc();
-      this.pstDiv.html('');
-    });
-  },
+    fullClear: function() {
+      Calculator.clrButton.dblclick(function(){
+        Calculator.clearFunc();
+        Calculator.pstDiv.html('');
+      });
+    },
 
-  typeDisp: function() {
-    $(document).keypress(function(event) {
-      if (this.operCodes.indexOf(event.which) != -1) {
-        this.eqDiv.append(String.fromCharCode(event.which));
-      } else if (this.numCodes.indexOf(event.which) != -1) {
-        this.eqDiv.append(String.fromCharCode(event.which));
-        answer = this.calculate(this.eqDiv.text());
-        this.rsltDiv.html(answer);
-      } else if (event.which == 99) {
-        this.clearFunc();
-      } else if (event.which == 13) {
-        this.equalsFunc();
+    typeDisp: function() {
+      $(document).keypress(function(event) {
+        if (Calculator.operCodes.indexOf(event.which) != -1) {
+          Calculator.eqDiv.append(String.fromCharCode(event.which));
+        } else if (Calculator.numCodes.indexOf(event.which) != -1) {
+          Calculator.eqDiv.append(String.fromCharCode(event.which));
+          answer = Calculator.calculate(Calculator.eqDiv.text());
+          Calculator.rsltDiv.html(answer);
+        } else if (event.which == 99) {
+          Calculator.clearFunc();
+        } else if (event.which == 13) {
+          Calculator.equalsFunc();
+        }
+      });
+    },
+
+    newError: function(errorMsg) {
+      alert(errorMsg);
+    },
+
+    chkInput: function(input) {
+      for (var i = 0; i < input.length; i++) {
+        if (input[0].match(/[\/\+\*\%]/)) {                                                                                            
+          Calculator.newError('Invalid operator at the start');
+        } else if ((input[i].match(/[\/\+\-\*\%]/)) && (input[i + 1].match(/[\/\+\-\*\%]/))) {
+          Calculator.newError("You can't have double operators bro. You just Can't.");
+        }
       }
-    });
-  },
+    }, 
 
-  newError: function(errorMsg) {
-    alert(errorMsg);
-  },
-
-  chkInput: function(input) {
-    for (var i = 0; i < input.length; i++) {
-      if (input[0].match(/[\/\+\*\%]/)) {                                                                                            
-        this.newError('Invalid operator at the start');
-      } else if ((input[i].match(/[\/\+\-\*\%]/)) && (input[i + 1].match(/[\/\+\-\*\%]/))) {
-        this.newError("You can't have double operators bro. You just Can't.");
+    calculate: function(input) {
+      Calculator.chkInput(input);
+      lastInput = input.length - 1;
+      
+      if (input[lastInput].match(/\d/)) {
+        answer = eval(input);
       }
+      return answer;
+    },
+
+    calcInit: function() {
+      this.numClick();
+      this.eqlClick();
+      this.clrClick();
+      this.fullClear();
+      this.typeDisp();
+    }, 
+
+    checkThis: function() {
+      console.log(this);
+      console.log(this === Calculator);
+      console.log($(this));
+      console.log($(this) == Calculator);
     }
-  }, 
+  };
 
-  calculate: function(input) {
-    this.chkInput(input);
-    lastInput = input.length - 1;
-    
-    if (input[lastInput].match(/\d/)) {
-      answer = eval(input);
-    }
-    return answer;
-  },
-
-  calcInit: function() {
-    this.numClick();
-    this.eqlClick();
-    this.clrClick();
-    this.fullClear();
-    this.typeDisp();
-  }
-};
-
-$(document).ready(Calculator.calcInit());
+  Calculator.calcInit();
+});
