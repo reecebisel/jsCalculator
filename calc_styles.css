@@ -22,7 +22,6 @@ body {
   padding: 10px 0;
   line-height: 16px;
   font-size: 16px;
-  /*float: right;*/
   text-align: right;
   background-color: white;
   display: block;
@@ -98,7 +97,7 @@ body {
   color: #f39c12;
   text-align: center;
   width: 25%;
-  height: 100px;
+  max-height: 100px;
   line-height: 100px;
   vertical-align: middle;
   font-size: 24px;
@@ -119,7 +118,7 @@ body {
   width: 100%;
   max-width: 400px;
   line-height: 100px;
-  height: 100px;
+  max-height: 100px;
   vertical-align: middle;
   font-size: 24px;
   display: inline-block;
@@ -135,25 +134,13 @@ body {
 
 /*=========== Small Screens =============*/
 
-@media screen and (max-width: 425px) {
+/*@media screen and (max-width: 425px) {
   .calc-body {
     width: 100%;
     height: 100%;
   }
 
-  .display {
-    height: 16%
-  }
-
-  .button-cell {
-    height: 16%;
-  }
-
-  .equals {
-    width: 100%;
-  }
-
   .clear {
     width: 25%;
   }
-}
+}*/

@@ -13,27 +13,23 @@ $(document).ready(function(){
       this.numButtons.click((function(event){
          var element = event.currentTarget;
          this.eqDiv.append($(element).html());
-         eq = this.eqDiv.html();
-         answer = this.calculate(eq);
-         this.rsltDiv.html(answer);
+         this.rsltDiv.html(this.calculate(this.eqDiv.html()));
       }).bind(this)); 
     },
 
     equalsFunc: function() {
-      eq = this.eqDiv.html();
-      prevAns = this.rsltDiv.html();
-      this.pstDiv.html(eq);
-      this.eqDiv.html(prevAns);
+      this.pstDiv.html(this.eqDiv.html());
+      this.eqDiv.html(this.rsltDiv.html());
     }, 
 
     clearFunc: function() {
-      Calculator.eqDiv.html('');
-      Calculator.rsltDiv.html('');
+      this.eqDiv.html('');
+      this.rsltDiv.html('');
     },
 
     fullClear: function() {
-      Calculator.clearFunc();
-      Calculator.pstDiv.html('');
+      this.clearFunc();
+      this.pstDiv.html('');
     },
 
     typeDisp: function() {
@@ -42,8 +38,7 @@ $(document).ready(function(){
           this.eqDiv.append(String.fromCharCode(event.which));
         } else if (this.numCodes.indexOf(event.which) != -1) {
           this.eqDiv.append(String.fromCharCode(event.which));
-          answer = this.calculate(this.eqDiv.text());
-          this.rsltDiv.html(answer);
+          this.rsltDiv.html(this.calculate(this.eqDiv.text()));
         } else if (event.which == 99) {
           this.clearFunc();
         } else if (event.which == 67) {
@@ -61,15 +56,15 @@ $(document).ready(function(){
     chkInput: function(input) {
       for (var i = 0; i < input.length; i++) {
         if (input[0].match(/[\/\+\*\%]/)) {                                                                                            
-          Calculator.newError('Invalid operator at the start');
+          this.newError('Invalid operator at the start');
         } else if ((input[i].match(/[\/\+\-\*\%]/)) && (input[i + 1].match(/[\/\+\-\*\%]/))) {
-          Calculator.newError("You can't have double operators bro. You just Can't.");
+          this.newError("You can't have double operators bro. You just Can't.");
         }
       }
     }, 
 
     calculate: function(input) {
-      Calculator.chkInput(input);
+      this.chkInput(input);
       lastInput = input.length - 1;
       
       if (input[lastInput].match(/\d/)) {
@@ -84,7 +79,17 @@ $(document).ready(function(){
       this.eqlButton.click(this.equalsFunc.bind(this));
       this.clrButton.click(this.clearFunc.bind(this));
       this.clrButton.dblclick(this.fullClear.bind(this));
+    }, 
+
+    adjWidth: function() {
+      $(window).resize((function(event) {
+        var window = event.currentTarget;
+        if (2 === 2) {
+          console.log($(window).width());
+        };
+      }).bind(this));
     }
   };
   Calculator.calcInit();
+  Calculator.adjWidth();
 });
