@@ -43,12 +43,16 @@ $(document).ready(function(){
     },
 
     fullClear: function() {
-      Calculator.clrButton.dblclick(function(){
-        Calculator.clearFunc();
-        Calculator.pstDiv.html('');
-      });
+      Calculator.clearFunc();
+      Calculator.pstDiv.html('');
     },
 
+    clrDbl: function() {
+      Calculator.clrButton.dblclick(function(){
+        Calculator.fullClear();
+      });
+    },
+      
     typeDisp: function() {
       $(document).keypress(function(event) {
         if (Calculator.operCodes.indexOf(event.which) != -1) {
@@ -61,6 +65,8 @@ $(document).ready(function(){
           Calculator.clearFunc();
         } else if (event.which == 13) {
           Calculator.equalsFunc();
+        } else if (event.which == 67) {
+          Calculator.fullClear();
         }
       });
     },
@@ -93,17 +99,9 @@ $(document).ready(function(){
       this.numClick();
       this.eqlClick();
       this.clrClick();
-      this.fullClear();
+      this.clrDbl();
       this.typeDisp();
-    }, 
-
-    checkThis: function() {
-      console.log(this);
-      console.log(this === Calculator);
-      console.log($(this));
-      console.log($(this) == Calculator);
     }
   };
-
   Calculator.calcInit();
 });
