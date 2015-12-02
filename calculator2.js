@@ -91,7 +91,9 @@ $(document).ready(function(){
     }, 
 
 
-    functions below are 
+    // functions below are a lengthy way to add and remove classes to adjust calulator's styling. 
+    // These can easily be replaced with jQuery's .addClass() and .removeClass() using the same 
+    // if else statements. 
 
     calcElmChg: function(target, modObj, parentH, numRow) {
       target.height((parentH / numRow) + 'px');
