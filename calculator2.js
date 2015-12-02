@@ -83,9 +83,9 @@ $(document).ready(function(){
 
     adjWidth: function() {
       $(window).resize((function(event) {
-        var window = event.currentTarget;
-        if (2 === 2) {
-          console.log($(window).width());
+        var win = event.currentTarget;
+        if ($(win).width() < 425) {
+          console.log($(win).width());
         };
       }).bind(this));
     }
