@@ -8,6 +8,8 @@ $(document).ready(function(){
     eqDiv:      $('.equation'),
     pstDiv:     $('.past'),
     rsltDiv:    $('.results'),
+    calcBod:    $('.calc-body'),
+    dispDiv:    $('.display'),
 
      numClick: function() {
       this.numButtons.click((function(event){
@@ -85,8 +87,19 @@ $(document).ready(function(){
       $(window).resize((function(event) {
         var win = event.currentTarget;
         if ($(win).width() < 425) {
-          console.log($(win).width());
-        };
+          this.calcBod.width($(win).width() + 'px');
+        }
+        if ($(win).height() < 600) {
+          winHeight = $(win).height();
+          this.calcBod.height(winHeight + 'px')
+          this.numButtons.height((winHeight / 6) + 'px');
+          this.clrButton.height((winHeight / 6) + 'px');
+          this.eqlButton.height((winHeight / 6) + 'px');
+          dispDivHeight = this.dispDiv.height((winHeight / 6) + 'px');
+          this.eqDiv.height((dispDivHeight / 2) + 'px');
+          this.rsltDiv.height((dispDivHeight / 4) + 'px');
+          this.pstDiv.height((dispDivHeight / 4) + 'px');
+        }
       }).bind(this));
     }
   };
