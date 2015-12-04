@@ -11,9 +11,9 @@ $(document).ready(function(){
     calcBod:       $('.calc-body'),
     dispDiv:       $('.display'),
     calBodMod:     {'padding':'0', 'margin':'0'},
-    dispMod:       {'padding': '0', 'margin': '0'},
-    smTxtMod:      {'font-size': '1em', 'line-height': '100%'},
-    eqMod:         {'line-height': '100%', 'font-size': '1.5em', 'vertical-align': 'middle'},
+    dispMod:       {'padding': '0', 'margin': '1%'},
+    smTxtMod:      {'padding': '0', 'margin': '0 1%', 'font-size': '1em', 'line-height': '100%', 'height': '25%'},
+    eqMod:         {'line-height': '100%', 'font-size': '1.5em', 'vertical-align': 'middle', 'height': '50%'},
     buttonMod:     {'line-height': '100%', 'font-size': '1em', 'vertical-align': 'middle'},
     stndButton:    {'line-height': '100px', 'font-size': '24px', 'vertical-align': 'middle'},
     
@@ -87,7 +87,7 @@ $(document).ready(function(){
       this.eqlButton.click(this.equalsFunc.bind(this));
       this.clrButton.click(this.clearFunc.bind(this));
       this.clrButton.dblclick(this.fullClear.bind(this));
-      this.chkWidth();
+      this.adjWidth();
     }, 
 
 
@@ -100,7 +100,7 @@ $(document).ready(function(){
       target.css(modObj);
     },
 
-    chkWidth: function() {
+    adjWidth: function() {
       $(window).resize((function(event) {
         var win = event.currentTarget;
         
@@ -112,16 +112,21 @@ $(document).ready(function(){
 
         if ($(win).height() < 600) {
           winHeight = $(win).height();
+          console.log(winHeight);
           this.calcBod.height(winHeight + 'px');
           this.calcBod.css(this.calBodMod);
           this.calcElmChg(this.numButtons, this.buttonMod, winHeight, 6);
           this.calcElmChg(this.clrButton, this.buttonMod, winHeight, 6);
           this.calcElmChg(this.eqlButton, this.buttonMod, winHeight, 6);
           dispDivHeight = this.dispDiv.height((winHeight / 6));
+          console.log(dispDivHeight.height());
           this.dispDiv.height(dispDivHeight + 'px');
           this.calcElmChg(this.eqDiv, this.eqMod, dispDivHeight, 2);
           this.calcElmChg(this.rsltDiv, this.smTxtMod, dispDivHeight, 4);
           this.calcElmChg(this.pstDiv, this.smTxtMod, dispDivHeight, 4);
+          
+          if (winHeight < 300) {};
+
         } else if ($(win).height() >= 600) {
           this.calcBod.css('height', '600px');
           this.numButtons.css(this.stndButton);
