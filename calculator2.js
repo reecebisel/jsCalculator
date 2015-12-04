@@ -62,16 +62,12 @@ $(document).ready(function(){
       }).bind(this));
     },
 
-    newError: function(errorMsg) {
-      alert(errorMsg);
-    },
-
     chkInput: function(input) {
       for (var i = 0; i < input.length; i++) {
         if (input[0].match(/[\/\+\*\%]/)) {                                                                                            
-          this.newError('Invalid operator at the start');
+          return
         } else if ((input[i].match(/[\/\+\-\*\%]/)) && (input[i + 1].match(/[\/\+\-\*\%]/))) {
-          this.newError("You can't have double operators bro. You just Can't.");
+          return
         }
       }
     }, 
