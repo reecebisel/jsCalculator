@@ -11,11 +11,11 @@ $(document).ready(function(){
     calcBod:       $('.calc-body'),
     dispDiv:       $('.display'),
     calBodMod:     {'padding':'0', 'margin':'0'},
-    dispMod:       {'padding': '0', 'margin': '1%'},
-    smTxtMod:      {'padding': '0', 'margin': '0 1%', 'font-size': '1em', 'line-height': '100%', 'height': '25%'},
-    eqMod:         {'line-height': '100%', 'font-size': '1.5em', 'vertical-align': 'middle', 'height': '50%'},
-    buttonMod:     {'line-height': '100%', 'font-size': '1em', 'vertical-align': 'middle'},
-    stndButton:    {'line-height': '100px', 'font-size': '24px', 'vertical-align': 'middle'},
+    dispMod:       {'padding': '0', 'margin': '15px'},
+    smTxtMod:      {'padding': '0', 'margin': '0 15px', 'font-size': '1em', 'line-height': '100%', 'height': '25%'},
+    eqMod:         {'font-size': '1.5em', 'vertical-align': 'middle', 'height': '50%', 'padding': '0'},
+    buttonMod:     {'padding': '0'},
+    stndButton:    {'line-height': '100px', 'font-size': '24px', 'vertical-align': 'middle', 'height': '100px'},
     
      numClick: function() {
       this.numButtons.click((function(event){
@@ -26,8 +26,13 @@ $(document).ready(function(){
     },
 
     equalsFunc: function() {
-      this.pstDiv.html(this.eqDiv.html());
-      this.eqDiv.html(this.rsltDiv.html());
+      if (this.rsltDiv.html() == undefined){
+        eq = this.eqDiv.html();
+        this.eqDiv.html(this.calculate(eq));
+      } else {
+        this.pstDiv.html(this.eqDiv.html());
+        this.eqDiv.html(this.rsltDiv.html());
+      }
     }, 
 
     clearFunc: function() {
@@ -87,56 +92,56 @@ $(document).ready(function(){
       this.eqlButton.click(this.equalsFunc.bind(this));
       this.clrButton.click(this.clearFunc.bind(this));
       this.clrButton.dblclick(this.fullClear.bind(this));
-      this.adjWidth();
+      this.resizeDim();
+      this.chkSetDims();
     }, 
 
-
-    // functions below are a lengthy way to add and remove classes to adjust calulator's styling. 
-    // These can easily be replaced with jQuery's .addClass() and .removeClass() using the same 
-    // if else statements. 
-
     calcElmChg: function(target, modObj, parentH, numRow) {
-      target.height((parentH / numRow) + 'px');
+      var cellH = (parentH / numRow) + 'px'
+      var fntSz = cellH / 2 + 'px'
+      target.height(cellH);
       target.css(modObj);
+      target.css({'line-height': "#{cellH}", 'font-size': "#{fntSz}", 'vertical-align': 'middle'});
     },
 
-    adjWidth: function() {
-      $(window).resize((function(event) {
-        var win = event.currentTarget;
+    chkSetDims: function() {
+
+      if (($(window).height() < 800) || ($(window).width < 400)) {
+        winHeight = $(window).height();
+
+        this.calcBod.height(winHeight + 'px');
+        this.calcBod.css(this.calBodMod);
+        this.calcElmChg(this.numButtons, this.buttonMod, winHeight, 6);
+        this.calcElmChg(this.clrButton, this.buttonMod, winHeight, 6);
+        this.calcElmChg(this.eqlButton, this.buttonMod, winHeight, 6);
         
-        if ($(win).width() < 400) {
-          this.calcBod.width($(win).width() + 'px');
-        } else if ($(win).width >= 400) {
-          this.calcBod.css('width', '400px');
+        dispDivHeight = this.dispDiv.height((winHeight / 6));
+        
+        this.dispDiv.height(dispDivHeight + 'px');
+        this.calcElmChg(this.eqDiv, this.eqMod, dispDivHeight, 2);
+        this.calcElmChg(this.rsltDiv, this.smTxtMod, dispDivHeight, 4);
+        this.calcElmChg(this.pstDiv, this.smTxtMod, dispDivHeight, 4);
+        
+        if (winHeight < 300) {
+          this.rsltDiv.css('display', 'none');
+          this.pstDiv.css('display', 'none');
         }
 
-        if ($(win).height() < 600) {
-          winHeight = $(win).height();
-          console.log(winHeight);
-          this.calcBod.height(winHeight + 'px');
-          this.calcBod.css(this.calBodMod);
-          this.calcElmChg(this.numButtons, this.buttonMod, winHeight, 6);
-          this.calcElmChg(this.clrButton, this.buttonMod, winHeight, 6);
-          this.calcElmChg(this.eqlButton, this.buttonMod, winHeight, 6);
-          dispDivHeight = this.dispDiv.height((winHeight / 6));
-          console.log(dispDivHeight.height());
-          this.dispDiv.height(dispDivHeight + 'px');
-          this.calcElmChg(this.eqDiv, this.eqMod, dispDivHeight, 2);
-          this.calcElmChg(this.rsltDiv, this.smTxtMod, dispDivHeight, 4);
-          this.calcElmChg(this.pstDiv, this.smTxtMod, dispDivHeight, 4);
-          
-          if (winHeight < 300) {};
+      } else if ($(window).height() >= 800) {
+        this.calcBod.css({'height': '600px', 'width': '400px'});
+        this.numButtons.css(this.stndButton);
+        this.clrButton.css(this.stndButton);
+        this.eqlButton.css({'font-size': '24px', 'width': '100%'});
+        this.dispDiv.css('height', '100px');
+        this.eqDiv.css({'height': '50px', 'font-size': '30px'});
+        this.pstDiv.css({'height': '25px', 'font-size': '16px'});
+        this.rsltDiv.css({'height': '25px', 'font-size': '16px'});
+      }
+    },
 
-        } else if ($(win).height() >= 600) {
-          this.calcBod.css('height', '600px');
-          this.numButtons.css(this.stndButton);
-          this.clrButton.css(this.stndButton);
-          this.eqlButton.css({'line-height': '100px', 'font-size': '24px', 'vertical-align': 'middle', 'width': '100%'});
-          this.dispDiv.css('height', '100px');
-          this.eqDiv.css({'height': '50px', 'font-size': '30px'});
-          this.pstDiv.css({'height': '25px', 'font-size': '16px'});
-          this.rsltDiv.css({'height': '25px', 'font-size': '16px'});
-        }
+    resizeDim: function() {
+      $(window).resize((function(event) {
+        this.chkSetDims();
       }).bind(this));
     }
   };
