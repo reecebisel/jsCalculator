@@ -97,11 +97,11 @@ $(document).ready(function(){
     }, 
 
     calcElmChg: function(target, modObj, parentH, numRow) {
-      var cellH = (parentH / numRow) + 'px'
-      var fntSz = cellH / 2 + 'px'
-      target.height(cellH);
-      target.css(modObj);
-      target.css({'line-height': "#{cellH}", 'font-size': "#{fntSz}", 'vertical-align': 'middle'});
+      var cellH = (parentH / numRow) + 'px'                                                           // calculates cell-height in pixels
+      var fntSz = cellH / 2 + 'px'                                                                    // Calculates font-size as 50% of cell height  
+      target.height(cellH);                                                                           // Sets whatever target element height to cell-height
+      target.css(modObj);                                                                             // Sets the modification object styling to target element
+      target.css({'line-height': "#{cellH}", 'font-size': "#{fntSz}", 'vertical-align': 'middle'});   // Sets font-sizes and aligns them in the middle. 
     },
 
     chkSetDims: function() {
