@@ -106,17 +106,18 @@ $(document).ready(function(){
 
     chkSetDims: function() {
 
-      if (($(window).height() < 800) || ($(window).width < 400)) {
+      if ($(window).height() < 800) {
         winHeight = $(window).height();
 
         this.calcBod.height(winHeight + 'px');
         this.calcBod.css(this.calBodMod);
+        // buttons
         this.calcElmChg(this.numButtons, this.buttonMod, winHeight, 6);
         this.calcElmChg(this.clrButton, this.buttonMod, winHeight, 6);
         this.calcElmChg(this.eqlButton, this.buttonMod, winHeight, 6);
         
+        // display portion
         dispDivHeight = this.dispDiv.height((winHeight / 6));
-        
         this.dispDiv.height(dispDivHeight + 'px');
         this.calcElmChg(this.eqDiv, this.eqMod, dispDivHeight, 2);
         this.calcElmChg(this.rsltDiv, this.smTxtMod, dispDivHeight, 4);

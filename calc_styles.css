@@ -46,8 +46,6 @@ body {
 
 .calc-body {
   background-color: white;
-  /*width: 400px;
-  height: 600px;*/
 }
 
 .display {
@@ -58,7 +56,6 @@ body {
 /*============ Button Styles =============*/
 .button-cell {
   width: 25%;
-  /*max-height: 100px;*/
   padding: 0;
   margin: 0;
   text-align: center;
@@ -101,7 +98,6 @@ body {
   color: #f39c12;
   text-align: center;
   width: 25%;
-  max-height: 100px;
   line-height: 100px;
   vertical-align: middle;
   font-size: 24px;
